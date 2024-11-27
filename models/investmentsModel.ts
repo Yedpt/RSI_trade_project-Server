@@ -17,7 +17,7 @@ const investmentsModel = connectionDB.define("investments", {
         },
     },
     investment_type: {
-        type: DataTypes.ENUM(investmentsEnum.master, investmentsEnum.middle, investmentsEnum.junior),
+        type: DataTypes.ENUM(investmentsEnum.acciones, investmentsEnum.bonos, investmentsEnum.fondos),
         allowNull: false,
     },
     mount: {
@@ -25,7 +25,7 @@ const investmentsModel = connectionDB.define("investments", {
         allowNull: false,
     },
     state: {
-        type: DataTypes.ENUM(stateEnum.master, stateEnum.middle, stateEnum.junior),
+        type: DataTypes.ENUM(stateEnum.cerrado, stateEnum.abierto),
         allowNull: false,
     },
     start_date: {

@@ -1,7 +1,7 @@
 export enum profileEnum{
-  master = "master",
-  middle = "middle",
-  junior = "junior"
+  impulsivo = "impulsivo",
+  medio = "medio",
+  reservado = "reservado"
 }
 
 export interface Users {

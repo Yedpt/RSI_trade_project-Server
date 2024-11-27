@@ -25,7 +25,7 @@ const investmentsProductssModel = connectionDB.define("investments_products", {
         allowNull: false,
     },
     risk : {
-        type: DataTypes.ENUM(investmentsProductsEnum.master, investmentsProductsEnum.middle, investmentsProductsEnum.junior),
+        type: DataTypes.ENUM(investmentsProductsEnum.bajo, investmentsProductsEnum.medio, investmentsProductsEnum.alto),
         allowNull: false,
     },
     expect_profit: {

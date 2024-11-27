@@ -1,5 +1,5 @@
 export enum investmentsProductsEnum {
-    master = "master",
-    middle = "middle",
-    junior = "junior"
+    bajo = "bajo",
+    medio = "medio",
+    alto = "alto"
   }

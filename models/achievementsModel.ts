@@ -29,7 +29,7 @@ const Achievements = connectionDB.define("Achievements", {
         allowNull: false,
     },
     rewards : {
-        type: DataTypes.ENUM(AchievementsEnum.master, AchievementsEnum.middle, AchievementsEnum.junior),
+        type: DataTypes.ENUM(AchievementsEnum.acciones, AchievementsEnum.regalo),
         allowNull: false,
     }
 });

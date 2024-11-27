@@ -21,7 +21,7 @@ const educationContentModel = connectionDB.define("education_Content", {
         allowNull: false,
     },
     type: {
-        type: DataTypes.ENUM(educationContentEnum.master, educationContentEnum.middle, educationContentEnum.junior),
+        type: DataTypes.ENUM(educationContentEnum.video, educationContentEnum.texto, educationContentEnum.quiz),
         allowNull: false,
     },
     

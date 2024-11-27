@@ -1,5 +1,5 @@
 export enum educationContentEnum {
-    master = "master",
-    middle = "middle",
-    junior = "junior"
+   video = "video",
+   texto = "texto",
+   quiz = "quiz",
 }

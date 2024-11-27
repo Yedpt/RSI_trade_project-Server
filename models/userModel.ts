@@ -30,7 +30,7 @@ const UserModel = connectionDB.define<UserModel>("users", {
         allowNull: true,
     },
     profile: {
-        type: DataTypes.ENUM(profileEnum.master, profileEnum.middle, profileEnum.junior),
+        type: DataTypes.ENUM(profileEnum.impulsivo, profileEnum.medio, profileEnum.reservado),
         allowNull: false,
     },
     created_at: {

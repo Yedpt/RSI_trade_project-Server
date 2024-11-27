@@ -1,5 +1,4 @@
 export enum AchievementsEnum {
-    master = "master",
-    middle = "middle",
-    junior = "junior"
+    acciones = "acciones",
+    regalo =  "regalo",
 }

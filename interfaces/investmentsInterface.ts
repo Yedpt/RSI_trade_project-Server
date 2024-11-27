@@ -1,11 +1,10 @@
 export enum investmentsEnum {
-    master = "master",
-    middle = "middle",
-    junior = "junior"
+    acciones = "acciones",
+    fondos = "fondos",
+    bonos = "bonos"
   }
 
   export enum stateEnum {
-    master = "master",
-    middle = "middle",
-    junior = "junior"
+   cerrado = "cerrado",
+    abierto = "abierto",
   }

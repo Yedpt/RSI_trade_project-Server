@@ -25,7 +25,7 @@ const profitsModel = connectionDB.define("profits", {
         },
     },
     profile_type: {
-        type: DataTypes.ENUM(profitsEnum.master, profitsEnum.middle, profitsEnum.junior),
+        type: DataTypes.ENUM(profitsEnum.top, profitsEnum.medio, profitsEnum.bajo),
         allowNull: false,
     },
     description: {

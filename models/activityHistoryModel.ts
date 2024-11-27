@@ -17,7 +17,7 @@ const activityHistoryModel = connectionDB.define("activity_history", {
         },
     },
     activity_type: {
-        type: DataTypes.ENUM(activity_histyoryEnum.master, activity_histyoryEnum.middle, activity_histyoryEnum.junior), 
+        type: DataTypes.ENUM(activity_histyoryEnum.acciones, activity_histyoryEnum.bonos, activity_histyoryEnum.fondos), 
         allowNull: false,
     },
     
