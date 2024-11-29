@@ -9,7 +9,7 @@ import investmentsProductssModel from "./models/investmentsProducts";
 import educationContentModel from "./models/educationContentModel";
 import activityHistoryModel from "./models/activityHistoryModel";
 import Achievements from "./models/achievementsModel";
-
+import commentsModel from "./models/commentsModel";
 import { PORT } from "./config";
 import express from "express";
 import cors from "cors";
@@ -28,35 +28,36 @@ const initDB = async (sequelize: Sequelize) => {
         await sequelize.authenticate();
         console.log("Conexión exitosa a la base de datos.");
         
-        await UserModel.sync({ force: false });
+        await UserModel.sync({ force: true });
         console.log("Tabla de usuarios sincronizada.");
         
-        await Achievements.sync({ force: false });
+        await Achievements.sync({ force: true });
         console.log("Tabla de Achievements sincronizada.");
 
-        await userAchievements.sync({ force: false });
+        await userAchievements.sync({ force: true });
         console.log("Tabla de userAchievements sincronizada.");
 
-        await rankingModel.sync({ force: false });
+        await rankingModel.sync({ force: true });
         console.log("Tabla de ranking sincronizada.");
 
-        await profitsModel.sync({ force: false });
+        await profitsModel.sync({ force: true });
         console.log("Tabla de profits sincronizada.");
 
-        await investmentsModel.sync({ force: false });
+        await investmentsModel.sync({ force: true });
         console.log("Tabla de investments sincronizada.");
 
-        await investmentsProductssModel.sync({ force: false });
+        await investmentsProductssModel.sync({ force: true });
         console.log("Tabla de investmentsProducts sincronizada.");
 
-        await educationContentModel.sync({ force: false });
+        await educationContentModel.sync({ force: true });
         console.log("Tabla de educationContent sincronizada.");
 
-        await activityHistoryModel.sync({ force: false });
+        await activityHistoryModel.sync({ force: true });
         console.log("Tabla de activityHistory sincronizada.");
 
-
-        
+        await commentsModel.sync({force: true});
+        console.log("Tabla de comments sincronizada");
+     
     } catch (error) {
         console.error("Error al conectar la base de datos:", error);
     }

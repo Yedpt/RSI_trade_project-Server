@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import connectionDB from "../database/connectionDB";
 import UserModel from "./userModel";
 
-const Achievements = connectionDB.define("Achievements", {
+const commentsModel = connectionDB.define("comments", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -29,4 +29,4 @@ const Achievements = connectionDB.define("Achievements", {
     }
 });
 
-export default Achievements;
+export default commentsModel;
