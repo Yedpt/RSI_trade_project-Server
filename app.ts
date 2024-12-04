@@ -28,34 +28,34 @@ const initDB = async (sequelize: Sequelize) => {
         await sequelize.authenticate();
         console.log("Conexión exitosa a la base de datos.");
         
-        await UserModel.sync({ force: true });
+        await UserModel.sync({ force: false });
         console.log("Tabla de usuarios sincronizada.");
         
-        await Achievements.sync({ force: true });
+        await Achievements.sync({ force: false });
         console.log("Tabla de Achievements sincronizada.");
 
-        await userAchievements.sync({ force: true });
+        await userAchievements.sync({ force: false });
         console.log("Tabla de userAchievements sincronizada.");
 
-        await rankingModel.sync({ force: true });
+        await rankingModel.sync({ force: false });
         console.log("Tabla de ranking sincronizada.");
 
-        await profitsModel.sync({ force: true });
+        await profitsModel.sync({ force: false });
         console.log("Tabla de profits sincronizada.");
 
-        await investmentsModel.sync({ force: true });
+        await investmentsModel.sync({ force: false });
         console.log("Tabla de investments sincronizada.");
 
-        await investmentsProductssModel.sync({ force: true });
+        await investmentsProductssModel.sync({ force: false });
         console.log("Tabla de investmentsProducts sincronizada.");
 
-        await educationContentModel.sync({ force: true });
+        await educationContentModel.sync({ force: false });
         console.log("Tabla de educationContent sincronizada.");
 
-        await activityHistoryModel.sync({ force: true });
+        await activityHistoryModel.sync({ force: false });
         console.log("Tabla de activityHistory sincronizada.");
 
-        await commentsModel.sync({force: true});
+        await commentsModel.sync({force: false});
         console.log("Tabla de comments sincronizada");
      
     } catch (error) {
