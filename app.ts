@@ -10,6 +10,7 @@ import educationContentModel from "./models/educationContentModel";
 import activityHistoryModel from "./models/activityHistoryModel";
 import Achievements from "./models/achievementsModel";
 import commentsModel from "./models/commentsModel";
+import chatbotRoutes from "./routes/chatbotRoutes";
 import { PORT } from "./config";
 import express from "express";
 import cors from "cors";
@@ -20,6 +21,9 @@ export const app = express();
 app.use (cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+
+//rutas
+app.use("/api", chatbotRoutes)
 
 
 
