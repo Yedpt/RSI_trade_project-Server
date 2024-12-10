@@ -18,24 +18,45 @@ export const getOneNews = async (req: Request, res: Response) => {
         res .status(200).json(news);
      } catch (error) {
         console.log(error);
-    }
+
+      }
 }
 // create news
 
-export const createNews = async (req: Request, res: Response) => {
-    const { user_id, url_image, title, content } = req.body;
-    try {
+import upload from './uploadImage';
+import { Request, Response } from 'express';
+
+export const createNewsWithImage = async (req: Request, res: Response) => {
+    upload.single('image')(req, res, async (err: any) => {
+      if (err) {
+        return res.status(400).json({ error: err.message });
+      }
+
+      const { user_id, title, content } = req.body;
+      const url_image = req.file ? req.file.path : null;
+
+      try {
         const news = await newsModel.create({
-            user_id,
-            url_image,
-            title,
-            content,
+
+
+
+
+          user_id,
+          url_image,
+          title,
+          content,
         });
         res.status(200).json(news);
-    } catch (error) {
-        console.log(error);
-    }
-}
+
+
+
+
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al crear la noticia' });
+      }
+    });
+};
 // update news
 export const updateNews = async (req: Request, res: Response) => {
     const { id } = req.params;
