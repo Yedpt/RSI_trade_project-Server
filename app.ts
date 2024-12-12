@@ -27,7 +27,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", chatbotRoutes)
 app.use("/api/stocks", stockRouter)
 
-
 const initDB = async (sequelize: Sequelize) => {
     try {
         await sequelize.authenticate();

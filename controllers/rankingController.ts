@@ -1,137 +1,89 @@
 // controllers/rankingController.ts
-import { Request, Response } from 'express';
-import rankingModel from '../models/rankingModel';
-import { IRanking, RankingResponse } from '../interfaces/rankingInterface';
+import { Response } from 'express';
+import RankingModel from '../models/rankingModel';
+import { IUserRequest } from '../interfaces/userInterface';
 import UserModel from '../models/userModel';
+import { Op } from 'sequelize';
 
-export class RankingController {
-    public async getRankings(req: Request, res: Response<RankingResponse>) {
-        try {
-            const rankings = await rankingModel.findAll({
-                include: [{
-                    model: UserModel,
-                    attributes: ['username']
-                }],
-                order: [
-                    ['mount', 'DESC']
-                ],
-                limit: 10
+export const getRankingData = async (req: IUserRequest, res: Response) => {
+    try {
+        const rankings = await RankingModel.findAll({
+            attributes: ['id', 'user_id', 'mount', 'ranking_date', 'state', 'total_investments'],
+            order: [['mount', 'DESC']],
+            limit: 10,
+            include: [{
+                model: UserModel,
+                attributes: ['username']
+            }]
+        });
+
+        let userData = null;
+        if (req.user?.id) {
+            const userRanking = await RankingModel.findOne({
+                where: { user_id: req.user.id },
             });
 
-            const formattedRankings = rankings.map((ranking: any) => ({
-                id: ranking.id,
-                user_id: ranking.user_id,
-                username: ranking.User?.username,
-                mount: ranking.mount,
-                ranking_date: ranking.ranking_date,
-                state: ranking.state,
-                total_investments: ranking.total_investments
-            }));
-
-            res.status(200).json({
-                success: true,
-                data: formattedRankings,
-                message: "Rankings retrieved successfully"
+            const userPosition = await RankingModel.count({
+                where: {
+                    mount: {
+                        [Op.gt]: userRanking?.mount || 0,
+                    },
+                },
             });
 
-        } catch (error) {
-            console.error('Error in getRankings:', error);
-            res.status(500).json({
-                success: false,
-                message: "Error retrieving rankings",
-                error: error instanceof Error ? error.message : "Unknown error"
-            });
+            userData = {
+                position: userPosition + 1,
+                rankingData: userRanking,
+            };
         }
-    }
 
-    // Método para crear un nuevo ranking
-    public async createRanking(req: Request, res: Response) {
-        try {
-            const rankingData: IRanking = req.body;
-            const newRanking = await rankingModel.create(rankingData);
-
-            res.status(201).json({
-                success: true,
-                data: newRanking,
-                message: "Ranking created successfully"
-            });
-
-        } catch (error) {
-            console.error('Error in createRanking:', error);
-            res.status(500).json({
-                success: false,
-                message: "Error creating ranking",
-                error: error instanceof Error ? error.message : "Unknown error"
-            });
-        }
-    }
-
-    // Método para actualizar un ranking
-    public async updateRanking(req: Request, res: Response) {
-        try {
-            const { id } = req.params;
-            const rankingData: Partial<IRanking> = req.body;
-
-            const ranking = await rankingModel.findByPk(id);
-            
-            if (!ranking) {
-                return res.status(404).json({
-                    success: false,
-                    message: "Ranking not found"
-                });
+        res.json({
+            success: true,
+            data: {
+                rankings,
+                userData
             }
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching ranking data'
+        });
+    }
+};
 
-            await ranking.update(rankingData);
+export const createRanking = async (req: IUserRequest, res: Response) => {
+    try {
+        const { mount, state, total_investments } = req.body;
+        const user_id = req.user?.id;
 
-            res.status(200).json({
-                success: true,
-                data: ranking,
-                message: "Ranking updated successfully"
-            });
-
-        } catch (error) {
-            console.error('Error in updateRanking:', error);
-            res.status(500).json({
+        if (!user_id) {
+            return res.status(400).json({
                 success: false,
-                message: "Error updating ranking",
-                error: error instanceof Error ? error.message : "Unknown error"
+                message: 'User ID is required'
             });
         }
+
+        const newRanking = await RankingModel.create({
+            user_id,
+            mount,
+            state,
+            total_investments,
+            ranking_date: new Date()
+        });
+
+        return res.status(201).json({
+            success: true,
+            data: newRanking
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error creating ranking entry'
+        });
     }
-
-    // Método para obtener un ranking específico
-    public async getRankingById(req: Request, res: Response) {
-        try {
-            const { id } = req.params;
-            const ranking = await rankingModel.findByPk(id, {
-                include: [{
-                    model: UserModel,
-                    attributes: ['username']
-                }]
-            });
-
-            if (!ranking) {
-                return res.status(404).json({
-                    success: false,
-                    message: "Ranking not found"
-                });
-            }
-
-            res.status(200).json({
-                success: true,
-                data: ranking,
-                message: "Ranking retrieved successfully"
-            });
-
-        } catch (error) {
-            console.error('Error in getRankingById:', error);
-            res.status(500).json({
-                success: false,
-                message: "Error retrieving ranking",
-                error: error instanceof Error ? error.message : "Unknown error"
-            });
-        }
-    }
-}
-
-export default new RankingController();
+};
+export default {
+    getRankingData,
+    createRanking
+};
