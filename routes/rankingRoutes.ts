@@ -1,11 +1,13 @@
 import express from 'express';
-import { getRanking, getUserRankingPosition, createRanking } from '../controllers/rankingController';
+import { getRankingData, createRanking } from '../controllers/rankingController';
 import { validateAuth } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
-router.get('/', validateAuth, getRanking);
-router.get('/position', validateAuth, getUserRankingPosition);
-router.post('/', validateAuth, createRanking);
+// Ruta para obtener el ranking general
+//router.get('/', validateAuth, getRankingData);
+
+// Ruta para crear un nuevo ranking
+//router.post('/', validateAuth, createRanking);
 
 export default router;

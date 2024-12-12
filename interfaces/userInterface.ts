@@ -5,7 +5,10 @@ export interface IUser {
 }
 
 export interface IUserRequest extends Request {
-  user?: IUser;
+    user?: {
+        id: number;
+        username: string;
+    };
 }
 
 export enum profileEnum{
@@ -13,7 +16,6 @@ export enum profileEnum{
   medio = "medio",
   reservado = "reservado"
 }
-
 export interface Users {
     id?: number
     rol: string;
