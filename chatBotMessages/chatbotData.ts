@@ -11,6 +11,7 @@ const responses: Record<string, string> = {
     "¿Qué es un broker?": "Un broker actúa como intermediario entre tú y el mercado financiero.",
     "¿Cuáles son los riesgos?": "Los riesgos incluyen la pérdida de dinero, volatilidad y decisiones emocionales.",
     "¿Qué es el análisis técnico?": "El análisis técnico evalúa el movimiento del precio utilizando gráficos e indicadores.",
+    "Puedo hablar con un humano?": "Por supuesto, estoy aquí para ayudarte. ¿En qué puedo ayudarte hoy?",
   };
 
   export default responses;

@@ -11,4 +11,5 @@ export interface Users {
     profile: profileEnum ;
     avatar: string;
     created_at : string
+    hasCompletedMiFID: boolean;
   }
