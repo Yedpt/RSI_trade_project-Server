@@ -1,9 +1,9 @@
 import { DataTypes, Model } from "sequelize";
 import connectionDB from "../database/connectionDB";
 import UserModel from "./userModel";
-import { rankingEnum } from "../interfaces/rankingInterface";
+import { RankingEnum } from "../interfaces/rankingInterface";
 
-const rankingModel = connectionDB.define("ranking", {
+const RankingModel = connectionDB.define("ranking", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -25,15 +25,14 @@ const rankingModel = connectionDB.define("ranking", {
         allowNull: false,
         defaultValue: DataTypes.NOW,
     },
-    state: {    
-        type: DataTypes.ENUM(rankingEnum.master, rankingEnum.middle, rankingEnum.junior),
+    state: {
+        type: DataTypes.ENUM(...Object.values(RankingEnum)),
         allowNull: false,
-    },  
+    },
     total_investments: {
         type: DataTypes.INTEGER,
         allowNull: false,
     }
-    
 });
 
-export default rankingModel;
+export default RankingModel;
