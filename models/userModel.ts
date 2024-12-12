@@ -13,15 +13,7 @@ const UserModel = connectionDB.define<UserModel>("users", {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    password: {
+    nickname: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -37,7 +29,11 @@ const UserModel = connectionDB.define<UserModel>("users", {
         type: DataTypes.DATE,
         allowNull: false,   
         defaultValue: DataTypes.NOW,
-        }
+        },
+        hasCompletedMiFID: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        },
 });
 
 export  default UserModel;
