@@ -11,7 +11,8 @@ import activityHistoryModel from "./models/activityHistoryModel";
 import Achievements from "./models/achievementsModel";
 import commentsModel from "./models/commentsModel";
 import chatbotRoutes from "./routes/chatbotRoutes";
-import stockRouter from "./routes/stockRouter";
+import logoRouter from "./routes/logoRoutes";
+import stockRouter from "./routes/stockRoutes";
 import { PORT } from "./config";
 import express from "express";
 import cors from "cors";
@@ -25,7 +26,8 @@ app.use(express.urlencoded({ extended: true }));
 
 //rutas
 app.use("/api", chatbotRoutes)
-app.use("/api/stocks", stockRouter)
+app.use("/api/logo", logoRouter);
+app.use("/api/stocks", stockRouter);
 
 
 const initDB = async (sequelize: Sequelize) => {
