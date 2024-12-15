@@ -13,6 +13,7 @@ import commentsModel from "./models/commentsModel";
 import chatbotRoutes from "./routes/chatbotRoutes";
 import logoRouter from "./routes/logoRoutes";
 import stockRouter from "./routes/stockRoutes";
+import router from "./routes/midFidRoutes";
 import { PORT } from "./config";
 import express from "express";
 import cors from "cors";
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", chatbotRoutes)
 app.use("/api/logo", logoRouter);
 app.use("/api/stocks", stockRouter);
+app.use("/api/midfid", router);
 
 
 const initDB = async (sequelize: Sequelize) => {
