@@ -9,10 +9,6 @@ const UserModel = connectionDB.define<UserModel>("users", {
         autoIncrement: true,
         primaryKey: true,
     },
-    rol: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     nickname: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -21,19 +17,23 @@ const UserModel = connectionDB.define<UserModel>("users", {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    profile: {
-        type: DataTypes.ENUM(profileEnum.impulsivo, profileEnum.medio, profileEnum.reservado),
+    hasCompletedMiFID: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+    },
+    dni: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    earnings: {
+        type: DataTypes.STRING,
         allowNull: false,
     },
     created_at: {
         type: DataTypes.DATE,
-        allowNull: false,   
+        allowNull: true,
         defaultValue: DataTypes.NOW,
-        },
-        hasCompletedMiFID: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        },
+    },
 });
 
-export  default UserModel;
+export default UserModel;

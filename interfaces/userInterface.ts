@@ -6,10 +6,10 @@ export enum profileEnum{
 
 export interface Users {
     id?: number
-    rol: string;
     nickname: string;
-    profile: profileEnum ;
-    avatar: string;
-    created_at : string
+    avatar?: string;
+    created_at?: string
     hasCompletedMiFID: boolean;
+    dni: string;
+    earnings: string;
   }
