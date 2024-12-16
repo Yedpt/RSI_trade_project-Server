@@ -29,7 +29,11 @@ const UserModel = connectionDB.define<UserModel>("users", {
         type: DataTypes.DATE,
         allowNull: false,   
         defaultValue: DataTypes.NOW,
-        }
+        },
+        hasCompletedMiFID: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        },
 });
 
 export  default UserModel;

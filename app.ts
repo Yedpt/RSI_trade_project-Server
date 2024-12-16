@@ -10,6 +10,9 @@ import educationContentModel from "./models/educationContentModel";
 import activityHistoryModel from "./models/activityHistoryModel";
 import Achievements from "./models/achievementsModel";
 import commentsModel from "./models/commentsModel";
+import chatbotRoutes from "./routes/chatbotRoutes";
+import logoRouter from "./routes/logoRoutes";
+import stockRouter from "./routes/stockRoutes";
 import { PORT } from "./config";
 import express from "express";
 import cors from "cors";
@@ -21,6 +24,10 @@ app.use (cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
+//rutas
+app.use("/api", chatbotRoutes)
+app.use("/api/logo", logoRouter);
+app.use("/api/stocks", stockRouter);
 
 
 const initDB = async (sequelize: Sequelize) => {
@@ -57,6 +64,7 @@ const initDB = async (sequelize: Sequelize) => {
 
         await commentsModel.sync({force: false});
         console.log("Tabla de comments sincronizada");
+
      
     } catch (error) {
         console.error("Error al conectar la base de datos:", error);
