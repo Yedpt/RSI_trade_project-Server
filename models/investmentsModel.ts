@@ -1,9 +1,11 @@
 import { DataTypes, Model } from "sequelize";
 import connectionDB from "../database/connectionDB";
 import UserModel from "./userModel";
-import { investmentsEnum, stateEnum } from "../interfaces/investmentsInterface";
+import { Investments} from "../interfaces/investmentsInterface";
 
-const investmentsModel = connectionDB.define("investments", {
+
+interface investments extends Model<Investments>, Investments {}
+const investmentsModel = connectionDB.define<investments>("investments", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -16,28 +18,23 @@ const investmentsModel = connectionDB.define("investments", {
             key: 'id',
         },
     },
-    investment_type: {
-        type: DataTypes.ENUM(investmentsEnum.acciones, investmentsEnum.bonos, investmentsEnum.fondos),
+    stockName: {
+        type: DataTypes.STRING,
         allowNull: false,
-    },
-    mount: {
-        type: DataTypes.DECIMAL,
+      },
+      action: {
+        type: DataTypes.ENUM("buy", "sell"),
         allowNull: false,
-    },
-    state: {
-        type: DataTypes.ENUM(stateEnum.cerrado, stateEnum.abierto),
+      },
+      quantity: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-    },
-    start_date: {
-        type: DataTypes.DATE,
+      },
+      price: {
+        type: DataTypes.FLOAT,
         allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
-    end_date: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    }
+      },
+    
     
 });
 

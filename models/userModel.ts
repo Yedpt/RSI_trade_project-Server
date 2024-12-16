@@ -34,6 +34,11 @@ const UserModel = connectionDB.define<UserModel>("users", {
         allowNull: true,
         defaultValue: DataTypes.NOW,
     },
+    wallet: {
+        type: DataTypes.FLOAT,
+        defaultValue: 100000,
+        allowNull: true,
+      },
 });
 
 export default UserModel;
