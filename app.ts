@@ -14,6 +14,7 @@ import chatbotRoutes from "./routes/chatbotRoutes";
 import logoRouter from "./routes/logoRoutes";
 import stockRouter from "./routes/stockRoutes";
 import router from "./routes/midFidRoutes";
+import investmentRouter from "./routes/investmentRoutes";
 import { PORT } from "./config";
 import express from "express";
 import cors from "cors";
@@ -30,6 +31,7 @@ app.use("/api", chatbotRoutes)
 app.use("/api/logo", logoRouter);
 app.use("/api/stocks", stockRouter);
 app.use("/api/midfid", router);
+app.use("/api", investmentRouter);
 
 
 const initDB = async (sequelize: Sequelize) => {

@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import connectionDB from "../database/connectionDB";
-import { profileEnum, Users } from "../interfaces/userInterface";
+import {  Users } from "../interfaces/userInterface";
 
 interface UserModel extends Model<Users>, Users {}
 const UserModel = connectionDB.define<UserModel>("users", {
