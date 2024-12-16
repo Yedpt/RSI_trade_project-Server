@@ -2,52 +2,56 @@ import { Request, Response } from "express";
 import newsModel from "../models/newsModel";
 import upload from './uploadImage';
 
-// Get all news
+// get every news
 export const getNews = async (req: Request, res: Response) => {
     try {
         const news = await newsModel.findAll();
         res.status(200).json(news);
     } catch (error) {
-        res.status(500).json({ error: 'Error fetching news' });
+        console.log(error);
     }
 }
 
-// Get one news by id
+// get one news
 export const getOneNews = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
         const news = await newsModel.findByPk(id);
-        if (!news) {
-            return res.status(404).json({ error: 'News not found' });
-        }
         res.status(200).json(news);
     } catch (error) {
-        res.status(500).json({ error: 'Error fetching news' });
+        console.log(error);
     }
 }
 
-// Create news with image
+// create news
 export const createNewsWithImage = async (req: Request, res: Response) => {
-    upload.single('image')(req, res, async (err: any) => {
-        if (err) {
-            return res.status(400).json({ error: err.message });
-        }
-
-        const { user_id, title, content } = req.body;
-        const url_image = req.file ? req.file.path.replace(/\\/g, '/') : null;
-
-        try {
-            const news = await newsModel.create({
-                user_id,
-                url_image,
-                title,
-                content,
-            });
-            res.status(201).json(news);
-        } catch (error) {
-            res.status(500).json({ error: 'Error creating news' });
-        }
+    // Envolver el manejo del archivo en una promesa
+    await new Promise((resolve, reject) => {
+        upload.single('image')(req, res, (err: any) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve(null);
+        });
+    }).catch((err) => {
+        return res.status(400).json({ error: err.message });
     });
+
+    const { user_id, title, content } = req.body;
+    const url_image = req.file ? req.file.path : null;
+
+    try {
+        const news = await newsModel.create({
+            user_id,
+            url_image,
+            title,
+            content,
+        });
+        res.status(200).json(news);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al crear la noticia' });
+    }
 };
 
 // Update news
